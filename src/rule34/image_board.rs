@@ -2,7 +2,7 @@ use crate::{rule34::paginate, Context, Error};
 use shuller::prelude::*;
 
 static MAX_TAB_LEN: usize = 4;
-static MAX_SEARCH_LEN: u16 = 30;
+pub static MAX_SEARCH_LEN: u16 = 30;
 
 /// R34
 /// - Video => animated & sound, to positive tags
@@ -63,7 +63,7 @@ pub async fn porno(
             return Err("**Error: Posts** not found".into());
         }
         // gen tab
-        return paginate::paginate(ctx, &posts).await;
+        return paginate::paginate(ctx, posts, show_tags, false, &[], &[]).await;
     }
 
     // positive tags
@@ -87,7 +87,7 @@ pub async fn porno(
     }
 
     // fetch posts with tags
-    let posts = R34!(D; p = pt, n = nt, limit = MAX_SEARCH_LEN)
+    let posts = R34!(D; p = pt.clone(), n = nt.clone(), limit = MAX_SEARCH_LEN)
         .map_err(|x| Error::from(format!(r#"**Error: Posts** not found. Err{}"#, x)))?;
     if posts.is_empty() {
         return Err("**Error: Posts** not found".into());
@@ -98,5 +98,6 @@ pub async fn porno(
         posts_shuffled.truncate(MAX_TAB_LEN)
     }
 
-    paginate::paginate(ctx, &posts_shuffled).await
+    // gen tabs
+    paginate::paginate(ctx, posts_shuffled, show_tags, true, &pt, &nt).await
 }
