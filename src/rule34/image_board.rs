@@ -1,7 +1,7 @@
 use crate::{rule34::paginate, Context, Error};
 use shuller::prelude::*;
 
-static MAX_TAB_LEN: usize = 3;
+pub static MAX_TAB_LEN: usize = 3;
 pub static MAX_SEARCH_LEN: u16 = 30;
 
 /// R34
@@ -44,11 +44,11 @@ pub async fn porno(
     ctx.defer_ephemeral().await?;
 
     // init start bath of pictures
-    let size = size.unwrap_or(4);
+    let size = size.unwrap_or(3);
 
     // check max buttons (max 4)
     if size > MAX_TAB_LEN {
-        return Err("**Error: TOOO BIG**, max size is 4".into());
+        return Err("**Error: TOOO BIG**, max size is 3".into());
     }
 
     // return in find

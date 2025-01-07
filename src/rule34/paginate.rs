@@ -1,9 +1,10 @@
-use crate::rule34::image_board::MAX_SEARCH_LEN;
 use crate::{phrazes::PHRASES, Context, Error};
 use ::serenity::all::{CreateActionRow, CreateButton, CreateEmbed, CreateMessage, ReactionType};
 use poise::{serenity_prelude as serenity, CreateReply};
 use shuller::prelude::*;
 use shuller::{random_usize, R34};
+
+use super::image_board::MAX_TAB_LEN;
 
 pub async fn paginate(
     ctx: Context<'_>,
@@ -44,8 +45,9 @@ pub async fn paginate(
                 .await?;
         } else if press.data.custom_id == format!("luuma-{}-refresh", ctx_id) {
             posts.clear();
-            let new_posts = R34!(D; p = pt.to_vec(), n = nt.to_vec(), limit = MAX_SEARCH_LEN)
-                .map_err(|x| Error::from(format!(r#"**Error: Posts** not found. Err{}"#, x)))?;
+            let new_posts =
+                R34!(D; p = pt.to_vec(), n = nt.to_vec(), limit = MAX_TAB_LEN as u16)
+                    .map_err(|x| Error::from(format!(r#"**Error: Posts** not found. Err{}"#, x)))?;
             if posts.is_empty() {
                 return Err("**Error: Posts** not found".into());
             }
@@ -54,7 +56,7 @@ pub async fn paginate(
         } else {
             current_tab = {
                 let temp: Vec<&str> = press.data.custom_id.split("-").collect();
-                // umbrella[0]-ctx_id[1]-id[2]-post[3]
+                // luumma[0]-ctx_id[1]-id[2]-post[3]
                 temp[2].parse().unwrap_or(0)
             };
         }

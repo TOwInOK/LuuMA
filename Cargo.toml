@@ -1,7 +1,9 @@
 [package]
-name = "shuller_bot"
-version = "0.1.1"
+name = "luuma"
+version = "0.1.4"
 edition = "2021"
+authors = ["TOwInOK"]
+description = "just discord bot for sending anime pictures"
 
 [dependencies]
 anime-grubber = "0.0.5"
@@ -28,6 +30,3 @@ strip = true
 opt-level = 3
 lto = "fat"
 panic = "unwind"
-# [target.x86_64-unknown-linux-musl]
-# rustflags = ["-C", "target-feature=+crt-static"]
-# linker = "gcc"
