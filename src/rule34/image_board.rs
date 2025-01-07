@@ -1,7 +1,7 @@
 use crate::{rule34::paginate, Context, Error};
 use shuller::prelude::*;
 
-static MAX_TAB_LEN: usize = 4;
+static MAX_TAB_LEN: usize = 3;
 pub static MAX_SEARCH_LEN: u16 = 30;
 
 /// R34
