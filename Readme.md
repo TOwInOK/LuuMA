@@ -1,5 +1,5 @@
 # Luuma
-This bot can find some cool images from rule34 by your reqwest!
+This bot can find some cool images from [provider](#providers) by your reqwest!
 
 # Link
 [Link to use my self hosted bot](https://discord.com/oauth2/authorize?client_id=1299512869649645634)
